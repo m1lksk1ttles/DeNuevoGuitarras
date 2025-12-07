@@ -8,7 +8,7 @@ const API_URL = "https://denuevoguitarras.onrender.com";
   async function cargarGuitarras() {
     try {
       // Cambio aquí: Usamos la URL completa del backend
-      const res = await fetch(`${API_URL}/guitarras`);
+      const res = await fetch(`${API_URL}/guitarras/`);
       const guitarras = await res.json();
 
       let tablaHTML = `
@@ -52,7 +52,7 @@ const API_URL = "https://denuevoguitarras.onrender.com";
     data.idGuitarra = Number(data.idGuitarra);
 
     try {
-      const res = await fetch(`${API_URL}/guitarras`, {
+      const res = await fetch(`${API_URL}/guitarras/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -72,7 +72,7 @@ const API_URL = "https://denuevoguitarras.onrender.com";
     if (!idGuitarra) return alert('Introduce un ID para eliminar');
 
     try {
-      const res = await fetch(`${API_URL}/guitarras?idGuitarra=${idGuitarra}`, {
+      const res = await fetch(`${API_URL}/guitarras?idGuitarra=${idGuitarra}/`, {
         method: 'DELETE'
       });
 
@@ -92,7 +92,7 @@ const API_URL = "https://denuevoguitarras.onrender.com";
     data.idGuitarra = Number(data.idGuitarra);
 
     try {
-      const res = await fetch(`${API_URL}/guitarras`, {
+      const res = await fetch(`${API_URL}/guitarras/`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
