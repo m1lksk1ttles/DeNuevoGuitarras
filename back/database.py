@@ -8,10 +8,8 @@ load_dotenv()
 
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Debug (puedes quitar este print después)
 print("URL final:", SQLALCHEMY_DATABASE_URL)
 
-# Crear engine
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
     pool_pre_ping=True

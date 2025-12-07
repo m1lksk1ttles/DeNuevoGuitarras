@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
+const API_URL = "https://front-pqlx.onrender.com/"; 
+
   const form = document.getElementById('formGuitarra');
   const eliminarBtn = document.getElementById('eliminarBtn');
   const actualizarBtn = document.getElementById('actualizarBtn');
@@ -6,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function cargarGuitarras() {
     try {
-      const res = await fetch('/guitarras');
+      // Cambio aquí: Usamos la URL completa del backend
+      const res = await fetch(`${API_URL}/guitarras`);
       const guitarras = await res.json();
 
       let tablaHTML = `
@@ -50,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     data.idGuitarra = Number(data.idGuitarra);
 
     try {
-      const res = await fetch('/guitarras', {
+      // Cambio aquí: URL completa
+      const res = await fetch(`${API_URL}/guitarras`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -69,10 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const idGuitarra = form.idGuitarra.value;
     if (!idGuitarra) return alert('Introduce un ID para eliminar');
 
-    try 
-    {
-      const res = await fetch(`/guitarras?idGuitarra=${idGuitarra}`, 
-      {
+    try {
+      // Cambio aquí: URL completa
+      const res = await fetch(`${API_URL}/guitarras?idGuitarra=${idGuitarra}`, {
         method: 'DELETE'
       });
 
@@ -92,7 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
     data.idGuitarra = Number(data.idGuitarra);
 
     try {
-      const res = await fetch('/guitarras', {
+      // Cambio aquí: URL completa
+      const res = await fetch(`${API_URL}/guitarras`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -108,4 +111,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   cargarGuitarras();
-});
