@@ -8,4 +8,4 @@ class Guitarra(Base):
     Marca = Column(String(40))
     Modelo = Column(String(40))
     Configuracion = Column(String(40))
-    CantPots = Column(Integer(40))
+    CantPots = Column(Integer)
