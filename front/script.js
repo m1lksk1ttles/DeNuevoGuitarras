@@ -45,94 +45,69 @@ function limpiarFormulario() {
 
 // --- AGREGAR (POST) ---
 form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-  data.CantPots = Number(data.CantPots);
-  data.idGuitarra = Number(data.idGuitarra);
+    e.preventDefault();
+    // ... (tu código de FormData aquí sigue igual) ...
+    
+    try {
+        const res = await fetch(`${API_URL}/guitarras/`, { /* ... */ });
+        const result = await res.json();
 
-  try {
-    const res = await fetch(`${API_URL}/guitarras/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    const result = await res.json();
-
-    if (res.ok) {
-        // ÉXITO: El backend devolvió la guitarra creada, ponemos mensaje manual
-        alert("¡Guitarra agregada correctamente!");
-        limpiarFormulario();
-        cargarGuitarras();
-    } else {
-        // ERROR: El backend devolvió un error (ej. ID duplicado)
-        // FastAPI pone el mensaje de error en 'detail'
-        alert("Error: " + (result.detail || "Error desconocido"));
+        if (res.ok) {
+            // ÉXITO: Python devolvió la guitarra, nosotros ponemos el texto
+            alert("¡Guitarra agregada con éxito!"); 
+            limpiarFormulario();
+            cargarGuitarras();
+        } else {
+            // ERROR: Python devuelve 'detail'
+            alert("Error: " + result.detail); 
+        }
+    } catch (error) {
+        console.error(error);
     }
-
-  } catch (error) {
-    console.error('Error de red:', error);
-    alert("Error de conexión con el servidor");
-  }
 });
 
 // --- ELIMINAR (DELETE) ---
 eliminarBtn.addEventListener('click', async () => {
-  const idGuitarra = form.idGuitarra.value;
-  if (!idGuitarra) return alert('Introduce un ID para eliminar');
+    // ... (tu código de obtener ID sigue igual) ...
 
-  try {
-    const res = await fetch(`${API_URL}/guitarras/?idGuitarra=${idGuitarra}`, {
-      method: 'DELETE'
-    });
+    try {
+        const res = await fetch(`${API_URL}/guitarras/?idGuitarra=${idGuitarra}`, { /* ... */ });
+        const result = await res.json();
 
-    const result = await res.json();
-
-    if (res.ok) {
-        // ÉXITO: Aquí tu backend SI devuelve un campo "mensaje"
-        alert(result.mensaje);
-        limpiarFormulario();
-        cargarGuitarras();
-    } else {
-        // ERROR: (ej. ID no encontrado)
-        alert("Error: " + (result.detail || "No se pudo eliminar"));
+        if (res.ok) {
+            // ÉXITO: Aquí sí usamos result.mensaje porque Python lo envía
+            alert(result.mensaje); 
+            limpiarFormulario();
+            cargarGuitarras();
+        } else {
+            // ERROR: Leemos 'detail' (Ej. "No se encontró la guitarra...")
+            alert("Error: " + result.detail);
+        }
+    } catch (error) {
+        console.error(error);
     }
-
-  } catch (error) {
-    console.error('Error de red:', error);
-  }
 });
 
 // --- ACTUALIZAR (PUT) ---
 actualizarBtn.addEventListener('click', async () => {
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-  data.CantPots = Number(data.CantPots);
-  data.idGuitarra = Number(data.idGuitarra);
+    // ... (tu código de FormData aquí sigue igual) ...
 
-  try {
-    const res = await fetch(`${API_URL}/guitarras/`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+    try {
+        const res = await fetch(`${API_URL}/guitarras/`, { /* ... */ });
+        const result = await res.json();
 
-    const result = await res.json();
-
-    if (res.ok) {
-        // ÉXITO: El backend devuelve la guitarra actualizada, mensaje manual
-        alert("¡Guitarra actualizada correctamente!");
-        limpiarFormulario();
-        cargarGuitarras();
-    } else {
-        // ERROR: (ej. ID no existe)
-        alert("Error: " + (result.detail || "No se pudo actualizar"));
+        if (res.ok) {
+            // ÉXITO: Mensaje manual
+            alert("¡Guitarra actualizada con éxito!");
+            limpiarFormulario();
+            cargarGuitarras();
+        } else {
+            // ERROR: Leemos 'detail'
+            alert("Error: " + result.detail);
+        }
+    } catch (error) {
+        console.error(error);
     }
-
-  } catch (error) {
-    console.error('Error de red:', error);
-  }
 });
 
 cargarGuitarras();
