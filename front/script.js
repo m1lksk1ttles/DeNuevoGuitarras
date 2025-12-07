@@ -1,4 +1,4 @@
-const API_URL = "https://denuevoguitarras.onrender.com/"; 
+const API_URL = "https://denuevoguitarras.onrender.com"; 
 
   const form = document.getElementById('formGuitarra');
   const eliminarBtn = document.getElementById('eliminarBtn');
