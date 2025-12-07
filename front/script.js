@@ -7,7 +7,6 @@ const API_URL = "https://denuevoguitarras.onrender.com";
 
   async function cargarGuitarras() {
     try {
-      // Cambio aquí: Usamos la URL completa del backend
       const res = await fetch(`${API_URL}/guitarras/`);
       const guitarras = await res.json();
 
