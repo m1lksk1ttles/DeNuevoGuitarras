@@ -19,7 +19,7 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Ojo: En producción cambia "*" por tu dominio real
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,7 +37,6 @@ def get_db():
 
 @app.post("/guitarras/", response_model=Guitarra)
 def agregar_guitarra(guitarra: GuitarraCreate, db: Session = Depends(get_db)):
-    # Verifica si ya existe una guitarra con el mismo idGuitarra
     if db.query(models.Guitarra).filter(models.Guitarra.idGuitarra == guitarra.idGuitarra).first():
         raise HTTPException(status_code=400, detail="Ya existe una guitarra con este ID")
     
