@@ -52,7 +52,6 @@ const API_URL = "https://denuevoguitarras.onrender.com";
     data.idGuitarra = Number(data.idGuitarra);
 
     try {
-      // Cambio aquí: URL completa
       const res = await fetch(`${API_URL}/guitarras`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -73,7 +72,6 @@ const API_URL = "https://denuevoguitarras.onrender.com";
     if (!idGuitarra) return alert('Introduce un ID para eliminar');
 
     try {
-      // Cambio aquí: URL completa
       const res = await fetch(`${API_URL}/guitarras?idGuitarra=${idGuitarra}`, {
         method: 'DELETE'
       });
@@ -94,7 +92,6 @@ const API_URL = "https://denuevoguitarras.onrender.com";
     data.idGuitarra = Number(data.idGuitarra);
 
     try {
-      // Cambio aquí: URL completa
       const res = await fetch(`${API_URL}/guitarras`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
