@@ -72,7 +72,7 @@ const API_URL = "https://denuevoguitarras.onrender.com";
     if (!idGuitarra) return alert('Introduce un ID para eliminar');
 
     try {
-      const res = await fetch(`${API_URL}/guitarras?idGuitarra=${idGuitarra}/`, {
+      const res = await fetch(`${API_URL}/guitarras/?idGuitarra=${idGuitarra}`, {
         method: 'DELETE'
       });
 
