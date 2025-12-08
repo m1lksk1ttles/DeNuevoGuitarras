@@ -5,7 +5,6 @@ const eliminarBtn = document.getElementById('eliminarBtn');
 const actualizarBtn = document.getElementById('actualizarBtn');
 const tablaDiv = document.getElementById('tabla');
 
-// --- 1. CARGAR TABLA (GET) ---
 async function cargarGuitarras() {
   try {
     const res = await fetch(`${API_URL}/guitarras/`);
@@ -47,18 +46,15 @@ function limpiarFormulario() {
   form.reset();
 }
 
-// --- 2. AGREGAR (POST) ---
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // Recuperamos los datos del formulario (esto faltaba)
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     data.CantPots = Number(data.CantPots);
     data.idGuitarra = Number(data.idGuitarra);
     
     try {
-        // Restauramos la configuración del fetch
         const res = await fetch(`${API_URL}/guitarras/`, { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -80,18 +76,13 @@ form.addEventListener('submit', async (e) => {
     }
 });
 
-// --- 3. ELIMINAR (DELETE) ---
 eliminarBtn.addEventListener('click', async (e) => {
-    e.preventDefault(); // Evita recargas si el botón está dentro del form
-
-    // Obtenemos el ID del input (esto faltaba)
-    // Asumiendo que tu input de ID tiene name="idGuitarra"
+    e.preventDefault();
     const idGuitarra = new FormData(form).get('idGuitarra');
 
     if (!idGuitarra) return alert("Escribe un ID para eliminar");
 
     try {
-        // Restauramos el método DELETE
         const res = await fetch(`${API_URL}/guitarras/?idGuitarra=${idGuitarra}`, { 
             method: 'DELETE'
         });
@@ -111,18 +102,15 @@ eliminarBtn.addEventListener('click', async (e) => {
     }
 });
 
-// --- 4. ACTUALIZAR (PUT) ---
 actualizarBtn.addEventListener('click', async (e) => {
-    e.preventDefault(); // Evita recargas
+    e.preventDefault();
 
-    // Recuperamos los datos de nuevo (esto faltaba)
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     data.CantPots = Number(data.CantPots);
     data.idGuitarra = Number(data.idGuitarra);
 
     try {
-        // Restauramos la configuración PUT
         const res = await fetch(`${API_URL}/guitarras/`, { 
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -144,5 +132,4 @@ actualizarBtn.addEventListener('click', async (e) => {
     }
 });
 
-// Carga inicial
 cargarGuitarras();
